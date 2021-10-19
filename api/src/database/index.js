@@ -1,8 +1,8 @@
-//import modulos
+//import modulos;
 import Sequelize from "sequelize";
-//import databaseConfig
+//import databaseConfig;
 import databaseConfig from "../config/database";
-//import models for database
+//import models for database;
 
 const models = [];
 

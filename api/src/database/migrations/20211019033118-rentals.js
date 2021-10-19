@@ -1,20 +1,29 @@
 'use strict';
 
+const sequelize = require("sequelize");
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable("specifications", {
+    return queryInterface.createTable("rentals", {
       id: {
         type: Sequelize.UUID,
         allowNull: false,
         primaryKey: true,
-
       },
-      name: {
-        type: Sequelize.STRING,
+      start_date: {
+        type: Sequelize.DATE,
         allowNull: false,
       },
-      description: {
-        type: Sequelize.STRING,
+      end_date: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+      expected_return_date: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+      total: {
+        type: Sequelize.DECIMAL(10, 2),
         allowNull: false,
       },
       created_at: {
@@ -25,7 +34,7 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
       },
-      car_id: {
+      cars_id: {
         type: Sequelize.UUID,
         references: {
           model: 'cars',
@@ -35,10 +44,21 @@ module.exports = {
         onDELETE: 'SET NULL',
         allowNull: false,
       },
-    });
+      users_id: {
+        type: Sequelize.UUID,
+        references: {
+          model: 'users',
+          key: 'id',
+        },
+        onUPDATE: 'CASCADE',
+        onDELETE: 'SET NULL',
+        allowNull: false,
+      },
+
+    })
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("specifications");
+    return queryInterface.createTable("rentals")
   }
 };

@@ -2,20 +2,11 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable("specifications", {
+    return queryInterface.createTable("specifications_cars", {
       id: {
         type: Sequelize.UUID,
         allowNull: false,
         primaryKey: true,
-
-      },
-      name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      description: {
-        type: Sequelize.STRING,
-        allowNull: false,
       },
       created_at: {
         type: Sequelize.DATE,
@@ -35,10 +26,20 @@ module.exports = {
         onDELETE: 'SET NULL',
         allowNull: false,
       },
+      specifications_id: {
+        type: Sequelize.UUID,
+        references: {
+          model: 'specifications',
+          key: 'id',
+        },
+        onUPDATE: 'CASCADE',
+        onDELETE: 'SET NULL',
+        allowNull: false,
+      },
     });
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("specifications");
+    return queryInterface.dropTable("specifications_cars");
   }
 };
